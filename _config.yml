@@ -1,0 +1,18 @@
+title: ドキュメントの5S # override depends on environment
+baseurl: "/xxxx" # override depends on environment by command line@pipeline
+url: "" # override depends on environment
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - buildspec.yml
+
+collections:
+  docs:
+    output: true
+
+# Build settings
+#theme: minima
+plugins:
+  - jekyll-feed
+

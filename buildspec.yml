@@ -1,0 +1,28 @@
+version: 0.2
+
+phases:
+  install:
+#    runtime-versions:
+#      ruby: 2.7
+    commands:
+#       - bundle config set path 'vendor/bundle'
+#       - bundle install
+  build:
+    commands:
+       - whoami
+       - pwd 
+       - ls -l `pwd`
+       - mkdir /temp
+       - chmod 777 /temp
+       - cp -R -p * /temp 
+       - cd /temp
+       - gem list
+       - jekyll build --config _config.yml,_config_override_for_$DEPLOY_ENV.yml
+       - ls -R ./_site/
+  post_build:
+    commands:
+#      - aws s3 ls
+      - aws s3 sync --exact-timestamps --delete /temp/_site/ s3://aws-codestar-ap-northeast-1-424191114012-iae-doc-5s-prj-app/$DEPLOY_ENV/
+#artifacts:
+#  files:
+#    - /temp/_site/**/*
